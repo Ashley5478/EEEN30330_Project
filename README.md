@@ -18,7 +18,7 @@ The flowchart above is the flowchart that the Raspberry Pi Pico 2 W will follow.
 ## Deployment Guide
 There are a few steps required for deployment.
 ### SSL Certificate and Key
-You must have installed OpenSSL in your system. Please install one if you have not.
+You must have installed `OpenSSL` in your system. Please install one if you have not.
 
 Run the following to generate new SSL certificate and key.
 ```
@@ -109,6 +109,7 @@ python rainer_client.py 192.168.35.251 5254
 
 ### Option 2: Using client (User interface)
 An alternative program `webconsole/app.py` is used to run the user interface client program through `localhost:5000` or `127.0.0.1:5000`.
+Please install `cryptography` Python module in advance.
 
 Go to the folder `webconsole` and enter in your command line:
 ```
@@ -117,7 +118,11 @@ python app.py
 Then go to your web browser and navigate `localhost:5000` or `127.0.0.1:5000`. You will notice a screen that asks you to fill in the IP address and the port.
 Enter the IP address of the server such as `192.168.35.251` and the port `5254`. Press connect. Enjoy.
 
-## Technical details
+## Brief technical details
+A resistive moisture sensor is assumed to be used and it gives the voltage up to 2 V when the moisture is at full level. Hence the percentage of the moisture is calculated as followed:
+$MoistureLevel = SensorVoltage * \frac{100%}{2 V}$
+and 100% when $SensorVoltage > 2$.
+
 
 ## Current limitations
 Clients must be connected to the same network where the server is connected to since the connection is done through the private IP address. To connect to the server abroad from a different network, then setting a VPN server is necessary.
