@@ -43,8 +43,7 @@ CR_KEY=bytes.fromhex("<PLEASE USE 'openssl rand -hex 32' IN YOUR COMMAND PROMPT 
 ```
 and replace the text in quotation marks with the hex string generated. Make sure the CR_KEY has the same key for all three files.
 
-Do not leak the SSL keys and the challenge-response keys, otherwise the system may be considered compromised and may require generating new keys.
-
+(If needed, change it. Note that it is paramount that this is not stolen.)
 
 ## Command ID Match
 Make sure that the command constants defined in `rainer.py` and `rainer_client.py` match.
@@ -56,13 +55,13 @@ MODE_AUTOMATIC = 0
 MODE_MANUAL = 1
 
 # Commands
-COMMAND_QUERY = 0
-COMMAND_SET_MODE = 1
-COMMAND_SET_PUMP = 2
+COMMAND_QUERY = 0			# Checks the status of the system, including automatic mode, pump state, threshold, interval, and watering duration
+COMMAND_SET_MODE = 1		# Changes the mode between automatic and manual mode
+COMMAND_SET_PUMP = 2		# Turns the pump on or off (Manual mode only, does not work in auto mode)
+COMMAND_SET_THRESHOLD = 3	# Changes the moisture threshold level
+COMMAND_SET_INTERVAL = 4	# Changes the interval of measuring the moisture level (Auto mode)
+COMMAND_SET_DURATION = 5	# Changes the duration of water pump releasing when the soil is dry (Auto mode)
 ```
-
-Also make sure that CR_KEY matches between the two files.
-(If needed, change it. Note that it is paramount that this is not stolen.)
 
 ## Pins
 Within `__init__` method of `Application` class,
@@ -71,11 +70,11 @@ self.pot_sensors: list[ADC] = [
     ADC(26),
 ]
 self.pumps: list[Pin] = [
-    Pin(0, Pin.OUT)
+    Pin(15, Pin.OUT)
 ]
 ```
-`ADC(26)` is for the soil humidity sensor. (Add `ADC(27)` and `ADC(28)` if needed in the list.)
-`Pin(0, Pin.OUT)` is for the pump. (To be controlled like an LED.)
+`ADC(26)` is for the soil humidity sensor. (GP26)
+`Pin(15, Pin.OUT)` is for the pump. (GP15, To be controlled like an LED.)
 **Number of `self.pot_sensors` elements must equal the number of `self.pumps` elements.**
 
 ### Flash the Application
@@ -94,6 +93,7 @@ where `.ps1` file is used for Windows Powershell. Please use the appropriate fil
 Once Raspberry Pi Pico 2W boots, it should print out IP address. The port used is 5254.
 If running headless, check the router information or run an ARP scan and figure it out.
 
+Run the virtual environment and then follow one of the options:
 ### Option 1: Using client (command-line)
 `rainer_client.py` is what you use to interact with the application.
 
@@ -108,3 +108,20 @@ python rainer_client.py 192.168.35.251 5254
 ```
 
 ### Option 2: Using client (User interface)
+An alternative program `webconsole/app.py` is used to run the user interface client program through `localhost:5000` or `127.0.0.1:5000`.
+
+Go to the folder `webconsole` and enter in your command line:
+```
+python app.py
+```
+Then go to your web browser and navigate `localhost:5000` or `127.0.0.1:5000`. You will notice a screen that asks you to fill in the IP address and the port.
+Enter the IP address of the server such as `192.168.35.251` and the port `5254`. Press connect. Enjoy.
+
+## Technical details
+
+## Current limitations
+Clients must be connected to the same network where the server is connected to since the connection is done through the private IP address. To connect to the server abroad from a different network, then setting a VPN server is necessary.
+
+The client must know the server's IP address, which changes every time the server restarts or reconnects. It is essential to configure the router to assign a fixed IP address of the server.
+
+Currently only one sensor and a pump is supported, therefore, the index number `0` should be used when changing the moisture threshold and manually controlling the pump. The index feature is reserved for future expansion when multiple sensors and pumps are added.
