@@ -157,9 +157,10 @@ Currently only one sensor and a pump is supported, therefore, the index number `
 
 It is necessary to have program that can compile Python code installed with relevant Python modules in advance, as well as setting up the virtual environment manually. An executable program or app is planned to be developed in the future to allow clients run the user interface in one click.
 
-## Code reference
+## Code helping reference
 * Activating Virtual Envrionment: https://docs.python.org/3/library/venv.html
 * For GPIO and connecting to internet from Raspberry Pi in `rainer.py`:
-** https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico
-   https://learn.sparkfun.com/tutorials/micropython-programming-tutorial-getting-started-with-the-esp32-thing/experiment-5-wifi
+    * https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico
+    * https://learn.sparkfun.com/tutorials/micropython-programming-tutorial-getting-started-with-the-esp32-thing/experiment-5-wifi
 * User interface `webconsole/app.py`, `webconsole/templates/index.html`, and `webconsole/templates/index.html` are generated using Claude AI. The addition of the timing configuration is done with the help of Google Gemini.
+* Implementing the SSL communication encryption in `rainer.py` is implemented using Claude AI.
