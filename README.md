@@ -93,8 +93,9 @@ where `.ps1` file is used for Windows Powershell. Please use the appropriate fil
 Once Raspberry Pi Pico 2W boots, it should print out IP address. The port used is 5254.
 If running headless, check the router information or run an ARP scan and figure it out.
 
-Run the virtual environment and then follow one of the options:
+
 ### Option 1: Using client (command-line)
+
 `rainer_client.py` is what you use to interact with the application.
 
 It is a small script that sends commands to your device and receives replies.
@@ -102,16 +103,17 @@ Note that this script uses `rainer.pem` file.
 
 Also note that this script requires the installation of `cryptography` Python module.
 
-Example Usage:
+Go to the folder where the `rainer_client.py` is located and run the virtual environment. Then run the following command as an example:
 ```
 python rainer_client.py 192.168.35.251 5254
 ```
+You can now enter the command ID number and control the device.
 
 ### Option 2: Using client (User interface, recommended)
 An alternative program `webconsole/app.py` is used to run the user interface client program through `localhost:5000` or `127.0.0.1:5000`.
 Please install `cryptography` Python module in advance.
 
-Go to the folder `webconsole` and enter in your command line:
+Go to the folder `webconsole`, activate the virtual environment, and enter in your command line:
 ```
 python app.py
 ```
@@ -133,7 +135,7 @@ The manual activation of water pump can only be done when the system is set to m
 
 A resistive moisture sensor is assumed to be used and it gives the voltage up to 2 V when the moisture is at full level. Hence the percentage of the moisture is calculated as followed:
 $MoistureLevel = SensorVoltage * \frac{100%}{2 V}$
-and 100% when $SensorVoltage > 2$.
+and 100% when $SensorVoltage > 2 V$.
 
 Upon querying for the current status of the system, the server returns the state information in JSON format.
 
