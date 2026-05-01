@@ -1,6 +1,16 @@
-# Automatic Rainer
+# Internet of Things – IoT Irrigation machine: Rainer!
 This is an application that runs on Rasberry Pi Pico 2W (Possibly on Raspberry Pi Pico W too)
-for monitoring and watering plants.
+for monitoring and watering plants. In the project, an IoT irrigation device is proposed,
+which allows users such as households owning plants to monitor and maintain plants while being abroad.
+The moisture sensor is used to measure the moisture level and the system automatically releases the water pump
+when the moisture level is detected low.
+
+A html user interface is included to allow communication with the irrigation system.
+The control panel allows users to monitor the status such as current moisture level,
+automation mode, moisture threshold level, and whether the water pump is active.
+Users can also request the irrigation system wirelessly to change the system into manual mode,
+adjust threshold level that determines wet/dry status, and activate the water pump.
+
 
 ## Deployment Guide
 There are a few steps required for deployment.
