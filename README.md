@@ -81,11 +81,20 @@ self.pumps: list[Pin] = [
 ### Flash the Application
 This is straightforward. Load `rainer.py` to Raspberry Pi Pico 2W
 
+### Setting up the virtual environment (recommended)
+Setting the virtual environment before running Python isolates Python dependencies at the project level, preventing version conflicts.
+If you are in the folder `C:\Users\Project\Rainer` then run
+```
+python -m venv "C:\Users\Project\Rainer\.venv"
+.\.venv\Scripts\Activate.ps1
+```
+where `.ps1` file is used for Windows Powershell. Please use the appropriate file starting with `Activate` for your operating system.
+
 ### Boot
 Once Raspberry Pi Pico 2W boots, it should print out IP address. The port used is 5254.
 If running headless, check the router information or run an ARP scan and figure it out.
 
-### Using Client
+### Option 1: Using client (command-line)
 `rainer_client.py` is what you use to interact with the application.
 
 It is a small script that sends commands to your device and receives replies.
@@ -97,3 +106,5 @@ Example Usage:
 ```
 python rainer_client.py 192.168.35.251 5254
 ```
+
+### Option 2: Using client (User interface)
