@@ -43,6 +43,13 @@ CR_KEY=bytes.fromhex("<PLEASE USE 'openssl rand -hex 32' IN YOUR COMMAND PROMPT 
 ```
 and replace the text in quotation marks with the hex string generated. Make sure the CR_KEY has the same key for all three files.
 
+Then in your `rainer.py`, please replace the Wi-Fi connection credentials from the code below:
+```
+# Hard-coded Values
+SSID = "Your Wi-Fi name"
+PASSWORD = "Wi-Fi Password"
+```
+
 (If needed, change it. Note that it is paramount that this is not stolen.)
 
 ## Command ID Match
@@ -145,3 +152,10 @@ Clients must be connected to the same network where the server is connected to s
 The client must know the server's IP address, which changes every time the server restarts or reconnects. It is essential to configure the router to assign a fixed IP address of the server.
 
 Currently only one sensor and a pump is supported, therefore, the index number `0` should be used when changing the moisture threshold and manually controlling the pump. The index feature is reserved for future expansion when multiple sensors and pumps are added.
+
+## Code reference
+* Activating Virtual Envrionment: https://docs.python.org/3/library/venv.html
+* For GPIO and connecting to internet from Raspberry Pi in `rainer.py`:
+** https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico
+   https://learn.sparkfun.com/tutorials/micropython-programming-tutorial-getting-started-with-the-esp32-thing/experiment-5-wifi
+* User interface `webconsole/app.py`, `webconsole/templates/index.html`, and `webconsole/templates/index.html` are generated using Claude AI. The addition of the timing configuration is done with the help of Google Gemini.
