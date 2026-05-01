@@ -147,11 +147,15 @@ and 100% when $SensorVoltage > 2 V$.
 Upon querying for the current status of the system, the server returns the state information in JSON format.
 
 ## Current limitations
+Raspberry Pi Pico 2 W must be connected to 2.4 GHz Wi-Fi and does not work on 5 GHz. You will need to use the Raspberry Pi models that supports 5 GHz if you wish to connected to faster network, such as Raspberry Pi 5, although this may be expensive.
+
 Clients must be connected to the same network where the server is connected to since the connection is done through the private IP address. To connect to the server abroad from a different network, then setting a VPN server is necessary.
 
 The client must know the server's IP address, which changes every time the server restarts or reconnects. It is essential to configure the router to assign a fixed IP address of the server.
 
 Currently only one sensor and a pump is supported, therefore, the index number `0` should be used when changing the moisture threshold and manually controlling the pump. The index feature is reserved for future expansion when multiple sensors and pumps are added.
+
+It is necessary to have program that can compile Python code installed with relevant Python modules in advance, as well as setting up the virtual environment manually. An executable program or app is planned to be developed in the future to allow clients run the user interface in one click.
 
 ## Code reference
 * Activating Virtual Envrionment: https://docs.python.org/3/library/venv.html
