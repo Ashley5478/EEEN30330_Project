@@ -51,12 +51,8 @@ WLAN_CONNECTION_TIMEOUT=10
 HOST="0.0.0.0"
 PORT=5254
 # Hard-coded Values
-#SSID = "Bbox-6E0D8E28"
-#PASSWORD = "2000007169"
-#SSID = "SK_WiFiGIGA8900"
-#PASSWORD = "2002000294"
-SSID = "DESKTOP-S131ORK 7825"
-PASSWORD = "1-2081Gb"
+SSID = "Your Wi-Fi name"
+PASSWORD = "Wi-Fi Password"
 
 DEFAULT_POT_LOW_THRESHOLD=50    # Default value in percentage for which, if the probe value is lower, flag for watering.  
 DEFAULT_POT_HIGH_THRESHOLD=90	# Default value in percentage for which, if the probe value is higher, warn for too much water.
