@@ -11,10 +11,15 @@ automation mode, moisture threshold level, and whether the water pump is active.
 Users can also request the irrigation system wirelessly to change the system into manual mode,
 adjust threshold level that determines wet/dry status, and activate the water pump.
 
+## Server system structure
+![alt text](https://github.com/Ashley5478/EEEN30330_Project/blob/main/Server_flowchart.png?raw=true)
+The flowchart above is the flowchart that the Raspberry Pi Pico 2 W will follow.
 
 ## Deployment Guide
 There are a few steps required for deployment.
 ### SSL Certificate and Key
+You must have installed OpenSSL in your system. Please install one if you have not.
+
 Run the following to generate new SSL certificate and key.
 ```
 make clean
@@ -27,7 +32,21 @@ This is due to what the functions used in server application and client applicat
 Copy the contents of `rainer.key.base64` and `rainer.crt.base64` onto `rainer.py` application at appropriate location.
 (It is at the lines containing `a2b_base64` function.)
 
-# Command ID Match
+Once you have copied SSL keys above, create a shared key that is used for authentication, by running the following:
+```
+openssl rand -hex 32
+```
+and then copy the resulting hex string onto `rainer.py`, `rainer_client.py`, and `webconsole/app.py` at appropriate location by finding the following lines:
+```
+# 256-bit key used for challenge-response.
+CR_KEY=bytes.fromhex("<PLEASE USE 'openssl rand -hex 32' IN YOUR COMMAND PROMPT AND PASTE THE HEX GENERATED HERE>")
+```
+and replace the text in quotation marks with the hex string generated. Make sure the CR_KEY has the same key for all three files.
+
+Do not leak the SSL keys and the challenge-response keys, otherwise the system may be considered compromised and may require generating new keys.
+
+
+## Command ID Match
 Make sure that the command constants defined in `rainer.py` and `rainer_client.py` match.
 ```
 # Modes
@@ -45,7 +64,7 @@ COMMAND_SET_PUMP = 2
 Also make sure that CR_KEY matches between the two files.
 (If needed, change it. Note that it is paramount that this is not stolen.)
 
-# Pins
+## Pins
 Within `__init__` method of `Application` class,
 ```
 self.pot_sensors: list[ADC] = [
