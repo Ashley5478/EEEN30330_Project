@@ -107,7 +107,7 @@ Example Usage:
 python rainer_client.py 192.168.35.251 5254
 ```
 
-### Option 2: Using client (User interface)
+### Option 2: Using client (User interface, recommended)
 An alternative program `webconsole/app.py` is used to run the user interface client program through `localhost:5000` or `127.0.0.1:5000`.
 Please install `cryptography` Python module in advance.
 
@@ -119,10 +119,23 @@ Then go to your web browser and navigate `localhost:5000` or `127.0.0.1:5000`. Y
 Enter the IP address of the server such as `192.168.35.251` and the port `5254`. Press connect. Enjoy.
 
 ## Brief technical details
+The unit of the moisture level is in percentage and the time in seconds when typing in the numbers for changing the settings.
+
+The default settings are as followed:
+* Mode = Automatic
+* Lower threshold = 50%
+* Upper threshold = 90%
+* Moisture sensing period = 10 seconds
+* Water pump duration = 2 seconds
+The user can change all the options above using either Option 1 or Option 2. The lower threshold is what determines the behavior of the water pump. When the detected moisture level is below the lower threshold, then the water pump activates for 2 seconds by default. To make the moisture sening be done every 1 day, please set the moisture sensing period to `86400`.
+
+The manual activation of water pump can only be done when the system is set to manual mode.
+
 A resistive moisture sensor is assumed to be used and it gives the voltage up to 2 V when the moisture is at full level. Hence the percentage of the moisture is calculated as followed:
 $MoistureLevel = SensorVoltage * \frac{100%}{2 V}$
 and 100% when $SensorVoltage > 2$.
 
+Upon querying for the current status of the system, the server returns the state information in JSON format.
 
 ## Current limitations
 Clients must be connected to the same network where the server is connected to since the connection is done through the private IP address. To connect to the server abroad from a different network, then setting a VPN server is necessary.
